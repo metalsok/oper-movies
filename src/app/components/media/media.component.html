@@ -1,0 +1,15 @@
+@if (response$ | async; as response) {
+  <app-media-list
+    (loadNextPage)="loadNextPage(response.page + 1)"
+    [mediaItems]="response.results"
+    [loading]="(loading$ | async)"
+    [error]="error$ | async"
+    [hasMorePages]="response.page < response.total_pages"
+  ></app-media-list>
+}
+<!--@if ((loading$ | async) === true) {
+  <app-card-skeleton></app-card-skeleton>
+}
+@if (error$ | async; as error) {
+  <div>Something went wrong. {{ error }}</div>
+}-->

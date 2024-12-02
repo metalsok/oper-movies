@@ -1,0 +1,33 @@
+@if (loading()) {
+  <app-card-skeleton></app-card-skeleton>
+}
+@if (error()) {
+  <div class="flex flex-col items-center mt-16">
+    <h2 class="text-2xl text-gray-900 dark:text-white">Something went wrong!</h2>
+    <div class="text-gray-600 text-lg dark:text-white">
+      Error:{{ error() }}
+    </div>
+  </div>
+}
+@if (mediaItems().length) {
+  <div class="flex items-center justify-center">
+    <div
+      class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 p-4 md:gap-6"
+      appInfiniteScroll
+      [scrollableContainerSelector]="'#scrollable-container'"
+      (scrolled)="handleScroll()"
+    >
+      @for (item of mediaItems(); track $index) {
+        <app-media-item [item]="item"></app-media-item>
+      }
+    </div>
+  </div>
+}
+@if (isEmpty()) {
+  <div class="flex flex-col items-center mt-16">
+    <h2 class="text-2xl text-gray-900 dark:text-white">No results found.</h2>
+    <div class="text-gray-600 text-lg dark:text-white">
+      You have reached the limits of this application!
+    </div>
+  </div>
+}
